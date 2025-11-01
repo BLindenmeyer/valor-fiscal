@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1"/>
+	<title>Valor Fiscal</title>
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+	<link href="./styles.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+	<div class="container py-3 py-md-4">
+		<header class="card shadow-sm mb-3 border-0">
+			<div class="card-body p-3 p-md-4">
+				<div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3">
+					<div>
+						<h1 class="h4 mb-1 mb-md-0 fw-bold">Clientes</h1>
+						<p class="text-muted small mb-0 d-none d-md-block">Gerencie seus clientes de forma simples e eficiente</p>
+					</div>
+					<nav class="d-flex align-items-center gap-2" style="flex-wrap: nowrap !important; width: auto;">
+						<form class="input-group" style="width: 300px; flex-shrink: 0;">
+							<span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+							<input id="searchInput" class="form-control" placeholder="Buscar cliente...">
+						</form>
+						<button id="newBtn" class="btn btn-primary" style="flex-shrink: 0;">
+							<i class="bi bi-plus-circle me-1"></i>
+							<span class="d-none d-sm-inline">Novo</span>
+						</button>
+						<button id="logoutBtn" class="btn btn-outline-danger" style="flex-shrink: 0;">
+							<i class="bi bi-box-arrow-right me-1"></i>
+							<span class="d-none d-sm-inline">Sair</span>
+						</button>
+					</nav>
+				</div>
+			</div>
+		</header>
+
+		<main>
+			<!-- Alert -->
+			<section id="globalAlert" class="alert d-none alert-dismissible fade show" role="alert">
+				<span id="globalAlertMessage"></span>
+				<button type="button" class="btn-close" aria-label="Close"></button>
+			</section>
+
+			<!-- Loading State -->
+			<section id="loadingState" class="text-center py-5 d-none">
+				<div class="spinner-border text-primary" role="status">
+					<span class="visually-hidden">Carregando...</span>
+				</div>
+				<p class="text-muted mt-3">Carregando clientes...</p>
+			</section>
+
+			<!-- Empty State -->
+			<section id="emptyState" class="card shadow-sm border-0 text-center py-5 d-none">
+				<div class="card-body">
+					<i class="bi bi-inbox display-4 text-muted"></i>
+					<h2 class="mt-3 text-muted">Nenhum cliente encontrado</h2>
+					<p class="text-muted">Comece adicionando seu primeiro cliente.</p>
+					<button id="emptyNewBtn" class="btn btn-primary">
+						<i class="bi bi-plus-circle me-1"></i>Novo Cliente
+					</button>
+				</div>
+			</section>
+
+			<!-- Desktop Table View -->
+			<section id="tableContainer" class="card shadow-sm border-0 d-none d-lg-block">
+				<div class="card-body p-0">
+					<div class="table-responsive">
+						<table class="table align-middle table-hover mb-0">
+							<thead class="table-light">
+								<tr>
+									<th class="ps-4">Nome</th>
+									<th>CPF</th>
+									<th>CNPJ</th>
+									<th>Email</th>
+									<th>Telefone</th>
+									<th class="text-end pe-4">Ações</th>
+								</tr>
+							</thead>
+							<tbody id="tbody"></tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+			
+			<!-- Mobile/Tablet Card View -->
+			<section id="cardsContainer" class="row g-3 d-lg-none"></section>
+		</main>
+	</div>
+
+	<!-- Modal criar/editar -->
+	<div class="modal fade" id="clienteModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable modal-lg">
+			<form class="modal-content" id="clienteForm">
+				<div class="modal-header border-bottom">
+					<h2 class="modal-title fw-bold" id="clienteModalTitle">
+						<i class="bi bi-person-plus me-2"></i>Novo cliente
+					</h2>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div id="formAlert" class="alert d-none alert-dismissible fade show d-flex align-items-start gap-2" role="alert">
+						<div id="formAlertMessage" style="white-space: pre-line; flex: 1;"></div>
+						<button type="button" class="btn-close" aria-label="Close" style="flex-shrink: 0;"></button>
+					</div>
+					<input type="hidden" id="clienteId">
+					<div class="mb-3">
+						<label class="form-label fw-semibold">Nome completo <span class="text-danger">*</span></label>
+						<input id="nome" class="form-control form-control-lg" maxlength="255" required>
+						<small class="text-muted">Digite nome e sobrenome</small>
+					</div>
+					<div class="mb-3">
+						<label class="form-label fw-semibold">CPF <span class="text-danger">*</span></label>
+						<input id="cpf" class="form-control form-control-lg" maxlength="14" inputmode="numeric" placeholder="000.000.000-00" required>
+						<small class="text-muted">Apenas números (11 dígitos)</small>
+					</div>
+					<div class="mb-3">
+						<label class="form-label fw-semibold">CNPJ</label>
+						<input id="cnpj" class="form-control form-control-lg" maxlength="18" inputmode="numeric" placeholder="00.000.000/0000-00">
+						<small class="text-muted">Apenas números (14 dígitos) - opcional</small>
+					</div>
+					<div class="mb-3">
+						<label class="form-label fw-semibold">Email</label>
+						<input id="email" class="form-control form-control-lg" maxlength="100" type="email" placeholder="cliente@email.com">
+						<small class="text-muted">Email válido - opcional</small>
+					</div>
+					<div class="mb-3">
+						<label class="form-label fw-semibold">Telefone</label>
+						<input id="telefone" class="form-control form-control-lg" maxlength="15" inputmode="numeric" placeholder="(11) 98765-4321">
+						<small class="text-muted">DDD + número - opcional</small>
+					</div>
+				</div>
+				<div class="modal-footer border-top">
+					<button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
+						<i class="bi bi-x-lg me-1"></i>Cancelar
+					</button>
+					<button class="btn btn-primary" id="saveBtn" type="submit">
+						<i class="bi bi-check-lg me-1"></i>Salvar
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script type="module" src="./src/app.js"></script>
+</body>
+</html>

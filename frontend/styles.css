@@ -1,0 +1,235 @@
+:root {
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.2s ease-in-out;
+}
+
+* {
+    transition: var(--transition);
+}
+
+body {
+    background: #f5f7fa;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    min-height: 100vh;
+}
+
+/* Cards e Containers */
+.card {
+    border-radius: var(--radius);
+    border: none;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    margin-bottom: 15px;
+}
+
+.card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+/* Tabela */
+.table-responsive {
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table thead th {
+    white-space: nowrap;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #6c757d;
+    padding: 1rem;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.table tbody td {
+    padding: 1rem;
+    vertical-align: middle;
+}
+
+.table tbody tr {
+    transition: var(--transition);
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+    transform: translateY(-1px);
+}
+
+/* Botões */
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+    transition: var(--transition);
+    padding: 0.5rem 1rem;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-sm {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+}
+
+/* Inputs */
+.form-control, 
+.form-control-lg {
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    transition: var(--transition);
+}
+
+.form-control:focus,
+.form-control-lg:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+}
+
+input::placeholder {
+    color: #adb5bd;
+    opacity: 0.7;
+}
+
+.input-group-text {
+    border-radius: 8px 0 0 8px;
+    border-color: #dee2e6;
+    background-color: #fff;
+}
+
+/* Modal */
+.modal-content {
+    border-radius: var(--radius);
+    border: none;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+    padding: 1.5rem;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-footer {
+    padding: 1rem 1.5rem;
+}
+
+/* Alerts */
+.alert {
+    border-radius: 8px;
+    border: none;
+    margin-bottom: 1rem;
+}
+
+/* Força o 'X' do alert a ficar no canto superior direito */
+.alert-dismissible .btn-close,
+.alert.alert-dismissible .btn-close,
+#globalAlert .btn-close,
+#formAlert .btn-close {
+    position: absolute !important;
+    top: 0.75rem !important;
+    right: 0.75rem !important;
+    z-index: 10 !important;
+    padding: 0.5rem !important;
+    margin: 0 !important;
+    float: none !important;
+    left: auto !important;
+    bottom: auto !important;
+}
+
+/* Cards View (Mobile) */
+.cliente-card {
+    border-radius: var(--radius);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.cliente-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.cliente-card .badge {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.65rem;
+}
+
+/* Loading State */
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+/* Empty State */
+#emptyState {
+    border-radius: var(--radius);
+}
+
+/* Responsive */
+@media (max-width: 991.98px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .btn span {
+        display: none !important;
+    }
+    
+    .modal-dialog {
+        margin: 0.5rem;
+    }
+    
+    .modal-body {
+        padding: 1rem;
+    }
+    
+    .card-body {
+        padding: 1rem !important;
+    }
+}
+
+/* Animações */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Utilities */
+.fw-semibold {
+    font-weight: 600;
+}
+
+.text-truncate-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
