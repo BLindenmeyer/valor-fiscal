@@ -2,13 +2,10 @@
 ![Express](https://img.shields.io/badge/Express.js-000000?logo=express&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-07405E?logo=sqlite&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B3?logo=bootstrap&logoColor=white)
+![Jest](https://img.shields.io/badge/Jest-Testing-C21325?logo=jest&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
-![Node.js](https://img.shields.io/badge/Node.js-20.x-43853D?logo=node.js&logoColor=white)
-![Express](https://img.shields.io/badge/Express.js-000000?logo=express&logoColor=white)
-![SQLite](https://img.shields.io/badge/SQLite-07405E?logo=sqlite&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
-![License](https://img.shields.io/badge/license-MIT-blue)
 
 # 🧩 CRUD de Clientes — Node.js + Express + SQLite + Sequelize + Zod
 
